@@ -9,7 +9,7 @@ const GalleryCard:React.FC<IGalleryCardProps> = ({image}) => {
     <div
       className="relative"
     >
-      <div className="h-42 w-64">
+      <div className="">
         <img src={image} alt="" />
       </div>
       

@@ -4,15 +4,15 @@ import Gallery from '../components/Gallery/gallery'
 const GalleryPage = () => {
 
   const images = [
-    './img/mountains.jpg',
-    './img/mountains.jpg',
-    './img/mountains.jpg',
-    './img/mountains.jpg',
-    './img/mountains.jpg'
+    './img/mountain.jpg',
+    './img/mountain.jpg',
+    './img/mountain.jpg',
+    './img/mountain.jpg',
+    './img/mountain.jpg',
   ];
 
   return (
-    <div className="bg-black h-96">
+    <div className="bg-black">
       <Gallery images={images}/>
     </div>
   )

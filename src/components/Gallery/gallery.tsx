@@ -8,19 +8,17 @@ interface IGalleryProps{
 
 const Gallery:React.FC<IGalleryProps> = ({images}) => {
 
-  console.log(images)
-
   return (
     <div className="grid grid-cols-2 gap-1">
       {images &&
         images.map((imageUrl, index) => (
-          <motion.div
+          <div
           key={index}
             >
             <GalleryCard
               image={imageUrl}
             />
-          </motion.div>
+          </div>
         ))}
     </div>
   )
