@@ -1,5 +1,6 @@
 import React from 'react';
 import GalleryPage from './pages/gallery-page';
+import TripsPage from './pages/trips-page';
 
 function App() {
 
@@ -8,7 +9,10 @@ function App() {
 
   return (
     <div className="App">
-      <GalleryPage city="Tokyo" country="Japon" startDate={startDate} endDate={endDate}  />
+      {
+        //<GalleryPage city="Tokyo" country="Japon" startDate={startDate} endDate={endDate}  />
+      }
+      <TripsPage />
     </div>
   );
 }
