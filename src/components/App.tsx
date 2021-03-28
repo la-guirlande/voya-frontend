@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import GalleryPage from '../pages/gallery-page';
+import TripsPage from '../pages/trips-page';
 import { LoginPage } from './authentification/login-page';
 import AuthenticationProvider from './context-providers/authentication-provider';
 import { HomePage } from './home-page/home-page';
@@ -21,6 +22,9 @@ const App: React.FC = () => {
           </Route>
           <Route exact path="/gallery">
             <GalleryPage city="Tokyo" country="Japon" startDate={startDate} endDate={endDate} />
+          </Route>
+          <Route exact path="/trips">
+            <TripsPage />
           </Route>
         </Switch>
       </BrowserRouter>
