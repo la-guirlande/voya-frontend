@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AuthenticationContext from '../../contexts/authentication-context';
-import useFetch from '../../hooks/fetch-hook';
+import { Status, useQuery } from '../../hooks/query-hook';
+
 import { Config } from '../../util/config';
 import { LocalStorageKey } from '../../util/local-storage';
 import { UserData } from '../../util/types/data-types';
@@ -8,20 +9,20 @@ import { UserInfoResponse } from '../../util/types/response-types';
 
 const AuthenticationProvider: React.FC = (props) => {
     const [authUser, setAuthUser] = useState<UserData>(null);
-    const [userInfoQueryState, userInfoQuery] = useFetch<UserInfoResponse>(`${Config.API_URL}/users/info`);
+    const userInfoQuery = useQuery<UserInfoResponse>();
 
     useEffect(() => {
-        if (!userInfoQueryState.fetched) {
-            const accessToken = localStorage.getItem(LocalStorageKey.ACCESS_TOKEN);
-            if (accessToken != null) {
-                userInfoQuery.get();
-            }
-        } else {
-            if (userInfoQueryState.data != null) {
-                setAuthUser(userInfoQueryState.data.user);
-            }
+        switch (userInfoQuery.status) {
+            case Status.INIT:
+                userInfoQuery.get(`http://localhost/users/info`, {
+                    headers: { Authorization: `Bearer ${localStorage.getItem(LocalStorageKey.ACCESS_TOKEN)}`}
+                });
+                break;
+            case Status.SUCCESS:
+                setAuthUser(userInfoQuery.response.user);
+                break;
         }
-    }, [userInfoQueryState.fetched]);
+    }, [userInfoQuery.status]);
 
     return (
         <AuthenticationContext.Provider value={{ authUser, isAuthenticated: authUser != null, setAuthUser }}>
