@@ -1,4 +1,4 @@
-import { DestinationData, JourneyData, ImageData, UserData } from './data-types';
+import { DestinationData, JourneyData, ImageData, UserData, ErrorData } from './data-types';
 
 /**
  * Base API response data interface.
@@ -6,6 +6,13 @@ import { DestinationData, JourneyData, ImageData, UserData } from './data-types'
 export interface Response {
     [key: string]: unknown;
 }
+
+/**
+ * Error response.
+ */
+ export interface ErrorResponse extends Response {
+    errors: ErrorData[];
+  }
 
 /**
  * Image response data interface.
@@ -17,24 +24,20 @@ export interface Response {
 }
 
 /**
- * Signin response data interface.
- * 
- * This API response is returned by `POST /auth/signin`.
+ * Access token response interface.
  */
- export interface SignInResponse extends Response {
-    accessToken: string;
-    refresh_token: string;
-}
+ export interface AccessTokenResponse extends Response {
+    access_token: string;
+  }
 
 /**
- * Signup response data interface.
- * 
- * This API response is returned by `POST /auth/signup`.
+ * Refresh token response interface.
  */
-export interface SignUpResponse extends Response {
-    accessToken: string;
+ export interface RefreshTokenResponse extends Response {
+    access_token: string;
     refresh_token: string;
-}
+  }
+
 
 /**
  * User informations response data interface.
@@ -53,3 +56,12 @@ export interface SignUpResponse extends Response {
 export interface UsersResponse extends Response {
     users: UserData[];
 }
+
+/**
+ * Creation response interface.
+ * 
+ * This API response is returned by any `POST` that creates a new resource.
+ */
+ export interface CreationResponse extends Response {
+    id: string;
+  }

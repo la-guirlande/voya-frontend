@@ -43,3 +43,29 @@ export interface ImageData extends TimeStamps {
     password: string;
     journeys: JourneyData[];
 }
+
+/**
+ * Error data.
+ */
+ export interface ErrorData {
+    error: ErrorCode;
+    error_description: string;
+  }
+  
+  /**
+   * Error code type.
+   */
+  export type ErrorCode =
+      'access_denied'
+    | 'invalid_client'
+    | 'invalid_grant'
+    | 'invalid_request'
+    | 'invalid_scope'
+    | 'network_error'
+    | 'not_found'
+    | 'server_error'
+    | 'temporarily_unavailable'
+    | 'unauthorized_client'
+    | 'unsupported_grant_type'
+    | 'unsupported_response_type'
+    | 'validation_failed';
