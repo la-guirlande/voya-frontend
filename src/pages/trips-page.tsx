@@ -1,34 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import TripCard from '../components/Trips/trip-card'
 import AuthenticationContext from '../contexts/authentication-context';
-import { Status, useQuery } from '../hooks/query-hook';
-import { JourneyData } from '../util/types/data-types';
-import { JourneysResponse } from '../util/types/response-types';
 
 const TripsPage = () => {
 
-  const authenticationContext = useContext(AuthenticationContext);
-  const user = authenticationContext.authUser;
-
-  const image = './img/city.jpg'
-  const city = 'Tokyo';
-  const [journeys, setJourneys] = useState<JourneyData[]>([])
-
-  const journeyQuery = useQuery<JourneysResponse>()
-
-  useEffect(() => {
-    switch (journeyQuery.status) {
-      case Status.INIT:
-        journeyQuery.get(`http://localhost/users/${user.id}/journeys`);
-        break;
-      case Status.SUCCESS:
-        setJourneys(journeyQuery.response.journeys)
-        break;
-      case Status.ERROR:
-        console.log(journeyQuery.errorResponse.errors)
-        break;
-    }
-  }, [journeyQuery.status])
+  const { authUser } = useContext(AuthenticationContext);
 
   return (
     <div className="bg-black flex flex-col h-screen">
@@ -48,9 +24,8 @@ const TripsPage = () => {
 
       <div className=" m-6 flex flex-row ">
         {
-         journeys && journeys.map((journey, index) => <TripCard image={journey.destinations[index].images[0].url} city={journey.destinations[index].city} />)
+         authUser && authUser.journeys.map((journey, i) => <TripCard key={i} image={journey.destinations[0]?.images[0]?.url} city={journey.destinations[0].city} />)
         }
-
       </div>
     </div>
   )
