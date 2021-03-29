@@ -7,9 +7,6 @@ import AuthenticationProvider from './context-providers/authentication-provider'
 import { HomePage } from './home-page/home-page';
 
 const App: React.FC = () => {
-  const startDate = new Date(Date.UTC(2020, 8, 20, 0, 0, 0));
-  const endDate = new Date(Date.UTC(2020, 8, 30, 3, 0, 0));
-
   return (
     <AuthenticationProvider>
       <BrowserRouter>
@@ -20,8 +17,8 @@ const App: React.FC = () => {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Route exact path="/gallery">
-            <GalleryPage city="Tokyo" country="Japon" startDate={startDate} endDate={endDate} />
+          <Route exact path="/gallery/:journeyId">
+            <GalleryPage />
           </Route>
           <Route exact path="/trips">
             <TripsPage />

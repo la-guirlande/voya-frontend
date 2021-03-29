@@ -11,7 +11,7 @@ export interface MapProps {
 }
 
 export const Map: FC<MapProps> = ({ journey, height }) => {
-  const location = new LatLng(45.75, 4.85);
+  const location = new LatLng(journey.destinations[0].lat, journey.destinations[0].lon);
   const defaultIcon = L.icon({
     iconUrl: icon,
     shadowUrl: iconShadow,

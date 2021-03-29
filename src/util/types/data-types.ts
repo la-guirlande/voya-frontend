@@ -12,6 +12,7 @@ interface TimeStamps {
  * Journey data interface.
  */
 export interface JourneyData extends TimeStamps {
+    id: string;
     public: boolean;
     destinations: DestinationData[];
 }

@@ -24,7 +24,7 @@ const TripsPage = () => {
 
       <div className=" m-6 flex flex-row ">
         {
-         authUser && authUser.journeys.map((journey, i) => <TripCard key={i} image={journey.destinations[0]?.images[0]?.url} city={journey.destinations[0].city} />)
+         authUser && authUser.journeys.map((journey, i) => <TripCard key={i} journey={journey} />)
         }
       </div>
     </div>
