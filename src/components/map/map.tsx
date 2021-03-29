@@ -1,4 +1,4 @@
-import L, { Icon, LatLng } from 'leaflet';
+import L, { LatLng } from 'leaflet';
 import React, { FC } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { JourneyData } from '../../util/types/data-types';
@@ -7,9 +7,10 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 export interface MapProps {
   journey?: JourneyData;
+  height?: number;
 }
 
-export const Map: FC<MapProps> = ({ journey }) => {
+export const Map: FC<MapProps> = ({ journey, height }) => {
   const location = new LatLng(45.75, 4.85);
   const defaultIcon = L.icon({
     iconUrl: icon,
@@ -20,7 +21,7 @@ export const Map: FC<MapProps> = ({ journey }) => {
   });
 
   return (
-    <MapContainer center={location} zoom={13} style={{ height: '90vh' }}>
+    <MapContainer center={location} zoom={13} style={{ height: `${height}px` }}>
       <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {journey?.destinations.map((destination, i) => (
         <Marker key={i} position={new LatLng(destination.lat, destination.lon)} icon={defaultIcon}>
@@ -32,5 +33,6 @@ export const Map: FC<MapProps> = ({ journey }) => {
 }
 
 Map.defaultProps = {
-  journey: null
+  journey: null,
+  height: 180
 }
