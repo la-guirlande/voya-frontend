@@ -72,5 +72,5 @@ export interface UsersResponse extends Response {
  * This API response is returned by `GET /users/:id/journeys`.
  */
 export interface JourneysResponse extends Response {
-  trips: JourneyData[];
+  journeys: JourneyData[];
 }

@@ -1,22 +1,33 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import TripCard from '../components/Trips/trip-card'
-import { useQuery } from '../hooks/query-hook';
+import AuthenticationContext from '../contexts/authentication-context';
+import { Status, useQuery } from '../hooks/query-hook';
+import { JourneyData } from '../util/types/data-types';
 import { JourneysResponse } from '../util/types/response-types';
 
 const TripsPage = () => {
 
+  const authenticationContext = useContext(AuthenticationContext);
+  const user = authenticationContext.authUser;
+
   const image = './img/city.jpg'
   const city = 'Tokyo';
-  const country = 'Japan'
-  const startDate = new Date(Date.UTC(2020, 8, 20, 0, 0, 0));
-  const endDate = new Date(Date.UTC(2020, 8, 30, 3, 0, 0));
+  const [journeys, setJourneys] = useState<JourneyData[]>([])
 
   const journeyQuery = useQuery<JourneysResponse>()
 
   useEffect(() => {
-    journeyQuery.get(`http://localhost/users/`,{
-
-    })
+    switch (journeyQuery.status) {
+      case Status.INIT:
+        journeyQuery.get(`http://localhost/users/${user.id}/journeys`);
+        break;
+      case Status.SUCCESS:
+        setJourneys(journeyQuery.response.journeys)
+        break;
+      case Status.ERROR:
+        console.log(journeyQuery.errorResponse.errors)
+        break;
+    }
   }, [journeyQuery.status])
 
   return (
@@ -34,12 +45,12 @@ const TripsPage = () => {
           </button>
         </div>
       </div>
-      
+
       <div className=" m-6 flex flex-row ">
-        <TripCard image={image} city={city} country={country} startDate={startDate} endDate={endDate}/>
-        <TripCard image={image} city={city} country={country} startDate={startDate} endDate={endDate}/>
-        <TripCard image={image} city={city} country={country} startDate={startDate} endDate={endDate}/>
-        <TripCard image={image} city={city} country={country} startDate={startDate} endDate={endDate}/>
+        {
+         journeys && journeys.map((journey, index) => <TripCard image={journey.destinations[index].images[0].url} city={journey.destinations[index].city} />)
+        }
+
       </div>
     </div>
   )
