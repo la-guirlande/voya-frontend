@@ -34,7 +34,7 @@ export const AuthenticationContainer: React.FC = () => {
         switch (userInfoQuery.status) {
             case Status.SUCCESS:
                 authenticationContext.setAuthUser(userInfoQuery.response.user);
-                history.push('/');
+                history.push(`/trips`);
                 break;
         }
     }, [userInfoQuery.status]);

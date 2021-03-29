@@ -65,3 +65,12 @@ export interface UsersResponse extends Response {
  export interface CreationResponse extends Response {
     id: string;
   }
+
+  /**
+ * Users trips response data interface.
+ * 
+ * This API response is returned by `GET /users/:id/journeys`.
+ */
+export interface JourneysResponse extends Response {
+  journeys: JourneyData[];
+}

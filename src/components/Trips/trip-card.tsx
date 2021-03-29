@@ -1,19 +1,13 @@
 import React from 'react'
+import { useHistory } from 'react-router';
+import { JourneyData } from '../../util/types/data-types';
 
 interface ITripCardProps{
-  image: string;
-  city: string;
-  country: string;
-  startDate: Date;
-  endDate: Date;
+  journey: JourneyData;
 }
 
-const TripCard:React.FC<ITripCardProps> = ({image, city, country, startDate, endDate}) => {
-
-  const formatDate = (date: Date) => {
-    let parsedDate = date.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-    return parsedDate
-  };
+const TripCard:React.FC<ITripCardProps> = ({ journey }) => {
+  const history = useHistory();
 
   return (
     <div className="mx-4">
@@ -21,21 +15,19 @@ const TripCard:React.FC<ITripCardProps> = ({image, city, country, startDate, end
         <div className="relative overflow-hidden pb-60">
           <img
             className="absolute h-full w-full object-cover object-center"
-            src={image}
+            src={journey.destinations[0].images[0].url}
             alt=""
           />
         </div>
         <div className="relative bg-gray-800">
           <div className="py-10 px-8">
-            <h3 className="text-2xl font-bold text-gray-100 font-montserrat">{city}, {country}</h3>
-            <div className="text-gray-300 text-sm font-medium flex mb-4 mt-2 font-montserrat">
-              <p>{formatDate(startDate)} au {formatDate(endDate)}</p>
-            </div>
+            <h3 className="text-2xl font-bold text-gray-100 font-montserrat">{journey.destinations[0].city}</h3>
+
             <div className="mt-10 flex justify-between items-center">
               
               <div className="flex items-center"
               >
-                <p className="mr-4 text-gray-400">Voir les photos</p>
+                <button className="mr-4 text-gray-400" onClick={() => history.push(`/gallery/${journey.id}`)}>Voir les photos</button>
               </div>
             </div>
           </div>
