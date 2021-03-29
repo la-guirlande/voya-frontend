@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TripCard from '../components/Trips/trip-card'
+import { useQuery } from '../hooks/query-hook';
+import { JourneysResponse } from '../util/types/response-types';
 
 const TripsPage = () => {
 
@@ -8,6 +10,14 @@ const TripsPage = () => {
   const country = 'Japan'
   const startDate = new Date(Date.UTC(2020, 8, 20, 0, 0, 0));
   const endDate = new Date(Date.UTC(2020, 8, 30, 3, 0, 0));
+
+  const journeyQuery = useQuery<JourneysResponse>()
+
+  useEffect(() => {
+    journeyQuery.get(`http://localhost/users/`,{
+
+    })
+  }, [journeyQuery.status])
 
   return (
     <div className="bg-black flex flex-col h-screen">
